@@ -3,10 +3,9 @@
 name: AWS example workflow
 on:
   push
-# env:
-  # BUCKET_NAME : "<example-bucket-name>"
-  # AWS_REGION : "ap-northeast-1"
-# permission can be added at job level or workflow level    
+env:
+  AWS_ROLE_ARN: arn:aws:iam::064720504409:role/github-oidc-role
+  AWS_REGION: ap-northeast-1
 permissions:
   id-token: write   # This is required for requesting the JWT
   contents: read    # This is required for actions/checkout
@@ -14,14 +13,9 @@ jobs:
   accessAWSTest:
     runs-on: ubuntu-latest
     steps:
-      - name: Test Access AWS
-        id: install-aws-cli
-        uses: unfor19/install-aws-cli-action@v1
+      - uses: actions/checkout@v2
+      - uses: aws-actions/configure-aws-credentials@v1
         with:
-          version: 2     # default
-          verbose: false # default
-          arch: amd64    # allowed values: amd64, arm64
-          rootdir: ""    # defaults to "PWD"
-          workdir: ""    # defaults to "PWD/unfor19-awscli"
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ap-northeast-1
       - run: aws iam list-users
-        shell: bash
