@@ -38,6 +38,6 @@ data "aws_iam_policy_document" "github_assume_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "github" {
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  policy_arn = "arn:aws:iam::aws:policy/IAMReadOnlyAccess"
   role       = aws_iam_role.github.name
 }
