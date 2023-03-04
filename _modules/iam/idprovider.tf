@@ -16,7 +16,7 @@ resource "aws_iam_role" "github" {
 
 data "aws_iam_policy_document" "github_assume_policy" {
   statement {
-    sid    = "CustomAssumePolicyForGithub"
+    sid    = "CustomAssumePolicyForGithubActions"
     effect = "Allow"
     principals {
       type        = "Federated"
