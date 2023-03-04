@@ -9,9 +9,9 @@ data "tls_certificate" "github" {
 }
 
 resource "aws_iam_role" "github" {
-  name = "github-oidc-role"
+  name               = "github-oidc-role"
   assume_role_policy = data.aws_iam_policy_document.github_assume_policy.json
-  path  = "/admin/"
+  path               = "/admin/"
 }
 
 data "aws_iam_policy_document" "github_assume_policy" {
@@ -19,8 +19,8 @@ data "aws_iam_policy_document" "github_assume_policy" {
     sid    = "CustomAssumePolicyForGithub"
     effect = "Allow"
     principals {
-      type           = "Federated"
-      identifiers  = ["arn:aws:iam::${var.accountid}:oidc-provider/token.actions.githubusercontent.com"]
+      type        = "Federated"
+      identifiers = ["arn:aws:iam::${var.accountid}:oidc-provider/token.actions.githubusercontent.com"]
     }
     actions = ["sts:AssumeRoleWithWebIdentity"]
     condition {
@@ -39,15 +39,15 @@ data "aws_iam_policy_document" "github_assume_policy" {
 
 data "aws_iam_policy_document" "sts_AssumeRoleWithWebIdentity" {
   statement {
-      sid    = "allowSts"
-    effect = "Allow"
-    actions = ["sts:AssumeRoleWithWebIdentity"]
+    sid       = "allowSts"
+    effect    = "Allow"
+    actions   = ["sts:AssumeRoleWithWebIdentity"]
     resources = ["*"]
   }
 }
 resource "aws_iam_policy" "sts_AssumeRoleWithWebIdentity" {
-  name = "github-oidc-role-policy"
-  path = "/admin/"  
+  name   = "github-oidc-role-policy"
+  path   = "/admin/"
   policy = data.aws_iam_policy_document.sts_AssumeRoleWithWebIdentity.json
 }
 resource "aws_iam_role_policy_attachment" "github" {
@@ -57,5 +57,5 @@ resource "aws_iam_role_policy_attachment" "github" {
 
 resource "aws_iam_role_policy_attachment" "sts_AssumeRoleWithWebIdentity" {
   policy_arn = aws_iam_policy.sts_AssumeRoleWithWebIdentity.arn
-  role = aws_iam_role.github.name
+  role       = aws_iam_role.github.name
 }
