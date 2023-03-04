@@ -10,7 +10,7 @@ remote_state {
 
 locals {
   accountid     = get_aws_account_id()
-  github_repos  = ["repo:shoheihosaka/terragrunt_infra:ref:refs/heads/main"]
+  github_repos  = ["repo:shoheiHosaka/terragrunt_infra:ref:refs/heads/main"]
 }
 
 inputs = {
