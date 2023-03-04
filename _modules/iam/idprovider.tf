@@ -37,7 +37,25 @@ data "aws_iam_policy_document" "github_assume_policy" {
   }
 }
 
+data "aws_iam_policy_document" "sts_AssumeRoleWithWebIdentity" {
+  statement {
+      sid    = "allowSts"
+    effect = "Allow"
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+    resources = ["*"]
+  }
+}
+resource "aws_iam_policy" "sts_AssumeRoleWithWebIdentity" {
+  name = "github-oidc-role-policy"
+  path = "/admin/"  
+  policy = data.aws_iam_policy_document.sts_AssumeRoleWithWebIdentity.json
+}
 resource "aws_iam_role_policy_attachment" "github" {
   policy_arn = "arn:aws:iam::aws:policy/IAMReadOnlyAccess"
   role       = aws_iam_role.github.name
+}
+
+resource "aws_iam_role_policy_attachment" "sts_AssumeRoleWithWebIdentity" {
+  policy_arn = aws_iam_policy.sts_AssumeRoleWithWebIdentity.arn
+  role = aws_iam_role.github.name
 }
