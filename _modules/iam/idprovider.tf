@@ -56,6 +56,6 @@ resource "aws_iam_role_policy_attachment" "github" {
 }
 
 resource "aws_iam_role_policy_attachment" "sts_AssumeRoleWithWebIdentity" {
-  policy_arn = aws_iam_policy.sts_AssumeRoleWithWebIdentity.arn
+  policy_arn = aws_iam_policy.sts_AssumeRoleWithWebIdentity.arn 
   role       = aws_iam_role.github.name
 }
