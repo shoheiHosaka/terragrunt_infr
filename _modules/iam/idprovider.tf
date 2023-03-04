@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "sts_AssumeRoleWithWebIdentity" {
   }
 }
 resource "aws_iam_policy" "sts_AssumeRoleWithWebIdentity" {
-  name   = "github-oidc-role-policy"
+  name   =  "github-oidc-role-policy"
   path   = "/admin/"
   policy = data.aws_iam_policy_document.sts_AssumeRoleWithWebIdentity.json
 }
