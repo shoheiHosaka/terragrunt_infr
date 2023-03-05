@@ -16,7 +16,7 @@ jobs:
   terragrunt_plan:
     name: 'Terragrunt'
     if: ${{ always() }}
-    needs: [terraform_fmt_check]
+    # needs: [terraform_fmt_check]
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
