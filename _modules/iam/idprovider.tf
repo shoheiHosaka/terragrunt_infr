@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "github_assume_policy" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:aud"
-      values   = ["sts.amazonaws.com" ]
+      values   = ["sts.amazonaws.com"]
     }
   }
 }
@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "sts_AssumeRoleWithWebIdentity" {
   }
 }
 resource "aws_iam_policy" "sts_AssumeRoleWithWebIdentity" {
-  name   =  "github-oidc-role-policy"
+  name   = "github-oidc-role-policy"
   path   = "/admin/"
   policy = data.aws_iam_policy_document.sts_AssumeRoleWithWebIdentity.json
 }
@@ -56,6 +56,6 @@ resource "aws_iam_role_policy_attachment" "github" {
 }
 
 resource "aws_iam_role_policy_attachment" "sts_AssumeRoleWithWebIdentity" {
-  policy_arn = aws_iam_policy.sts_AssumeRoleWithWebIdentity.arn 
+  policy_arn = aws_iam_policy.sts_AssumeRoleWithWebIdentity.arn
   role       = aws_iam_role.github.name
 }
