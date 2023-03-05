@@ -40,39 +40,10 @@ jobs:
           sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/v0.38.4/terragrunt_linux_amd64"
           sudo chmod +x /bin/terragrunt
           terragrunt -v
-
       - name: terragrunt init
         run: |
           cd ${{env.tg_working_dir}}
           terragrunt run-all init
-      # - name: 'Terragrunt Init'
-      #   uses: the-commons-project/terragrunt-github-actions@master
-      #   with:
-      #     tf_actions_version: ${{ env.tf_version }}
-      #     tg_actions_version: ${{ env.tg_version }}
-      #     tf_actions_subcommand: 'run-all init'
-      #     tf_actions_working_dir: ${{ env.tf_working_dir }}
-      #     tf_actions_comment: true
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # # - name: 'Terragrunt Validate'
-      # #   uses: the-commons-project/terragrunt-github-actions@master
-      # #   with:
-      # #     tf_actions_version: ${{ env.tf_version }}
-      # #     tg_actions_version: ${{ env.tg_version }}
-      # #     tf_actions_binary: 'terraform'
-      # #     tf_actions_subcommand: 'validate'
-      # #     tf_actions_working_dir: ${{ env.tf_working_dir }}
-      # #     tf_actions_comment: true
-      # #   env:
-      # #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: 'Terragrunt Plan'
-      #   uses: the-commons-project/terragrunt-github-actions@master
-      #   with:
-      #     tf_actions_version: ${{ env.tf_version }}
-      #     tg_actions_version: ${{ env.tg_version }}
-      #     tf_actions_subcommand: 'run-all plan'
-      #     tf_actions_working_dir: ${{ env.tf_working_dir }}
-      #     tf_actions_comment: true
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: terragrunt plan
+        run: terragrunt run-all plan
+      
