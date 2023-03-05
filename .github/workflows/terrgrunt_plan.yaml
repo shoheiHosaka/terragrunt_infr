@@ -43,7 +43,7 @@ jobs:
 
       - name: terragrunt init
         run: |
-          cd ${{tg_working_dir}}
+          cd ${{env.tg_working_dir}}
           terragrunt run-all init
       # - name: 'Terragrunt Init'
       #   uses: the-commons-project/terragrunt-github-actions@master
